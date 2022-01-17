@@ -33,8 +33,15 @@ namespace VisualPinball.Unity
 			MeshGenerator = meshGenerator;
 		}
 
+		/// <summary>
+		/// Converts the "hitMesh" to Collidables. Called in DroptargetColliderGenerator
+		/// </summary>
+		/// <param name="hitMesh"></param>
+		/// <param name="addedEdges"></param>
+		/// <param name="setHitObject"></param>
+		/// <param name="colliders"></param>
 		private protected void GenerateCollidables(Mesh hitMesh, EdgeSet addedEdges, bool setHitObject, ICollection<ICollider> colliders)  {
-
+			
 			// add the normal drop target as collidable but without hit event
 			for (var i = 0; i < hitMesh.Indices.Length; i += 3) {
 				var i0 = hitMesh.Indices[i];
@@ -63,6 +70,7 @@ namespace VisualPinball.Unity
 			foreach (var vertex in hitMesh.Vertices) {
 				colliders.Add(new PointCollider(vertex.ToUnityFloat3(), GetColliderInfo(setHitObject)));
 			}
+			
 		}
 
 		protected ColliderInfo GetColliderInfo(bool setHitObject)

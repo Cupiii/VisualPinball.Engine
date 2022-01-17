@@ -66,6 +66,7 @@ namespace VisualPinball.Engine.VPT.HitTarget
 
 		private Mesh GetBaseMesh()
 		{
+			// this is somehow not called
 			switch (_data.TargetType) {
 				case TargetType.DropTargetBeveled: return DropTargetT2Mesh.Clone(_data.Name);
 				case TargetType.DropTargetSimple: return DropTargetT3Mesh.Clone(_data.Name);
