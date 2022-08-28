@@ -63,6 +63,7 @@ namespace VisualPinball.Unity
 		public void OnDropStatusChanged(bool isDropped, Entity ballEntity)
 		{
 			OnSwitch(isDropped);
+			IsCollidable = isDropped;
 			Switch?.Invoke(this, new SwitchEventArgs(isDropped, ballEntity));
 		}
 
