@@ -130,7 +130,51 @@ namespace VisualPinball.Unity
 	 *		* Can the ball be affected in runtime (possibly no problem, when event system is working)
 	 *		* 
 	 *			
+	 *	Several months have gone since the above lis was written - I got much more insight, how everything works, so letzs try to sum up:		
+	 *	What File does what:
 	 *	
+	 *		DropTargetAnimationComponent
+	 *			* Provides User Inteface for all Animation Properties, Speed, RaiseDelay, IsDropped - consider this initialisation values given by user
+	 *		DropTargetAnimationData
+	 *			* All internal Variables used for animation purposes. Like States "MoveDown" TimeMsec TimeStamp But also a const: DropTargetLimit... Whatever.
+	 *		DropTargetAnimationSystem
+	 *			* System to animate Drop Targets - Only writes to DropTarget AnimationData - Question is, if droptarget animation data is accessibly from the physics.
+	 *			
+	 *		DropTargetApi
+	 *			* Events, 
+	 *			* Switches and 
+	 *			* Api for other Components (like the DTBank)
+	 *			* Wiring
+	 *			* (ColliderGeneration) only API call. DTColliderGenerator does the work.
+	 *			* Standard Events (OnInit, OnDestroy, OnHit (via IApiHittable)
+	 *		
+	 *		DropTargetColliderComponent
+	 *			* Povides User Interface for all Collision Properties, Elasticity, Falloff, Friction, Scatter, etc. - consider this initialisation values given by user
+	 *		DropTargetColliderGenerator
+	 *			* Generates all Colliders for the DT - There was a "mistake", that the Mesh was used to generate the colliders - 
+	 *				that could be very complicated, but also good, for DT, that have special roll-over characteristics 
+	 *				Don't know what to do here - simple self generated mesh, or use "animation" dt - possibly overkill - 
+	 *				will use self generated one with overhang front/back/overhang hight
+	 *		
+	 *		DropTargetComponent
+	 *			* Standard Component (extendsTargetComponent by inheritance) - some things I dont't understand yet. 
+	 *		DropTargetStaticData
+	 *			* used in the AnimationSystem - gets copied over from properties in (mostly animation-)component in DTComponent.convert(...)
+	 *		DropTargetTransformationSystem	
+	 *			* my best guess is that this is the job, that sets the position of the visible mesh... - yes, tests confirm - i could use this - 
+	 *				i have to use and enhance this when i enhance DropTargetAnimationData to Rotation etc.
+	 *		
+	 *		HitTarget*
+	 *			* not looked into
+	 *		
+	 *		* TargetCollider
+	 *			* very interesting - the DT has no HitTest - so it is assumed to be static and only standard Colliders (Line3DCollider, Trinagle Collider, Point Collider).
+	 *			* Do we need a hitTest? The Problem is, that I loose contact to the collider after generation - can I possibly save them?
+	 *			* I have a Colliderheader but cannot get it from within the droptarget
+	 *			* also the only thing that couldbe used is "onEnabled"
+	 *			
+	 *			
+	 *			Hier bleibt auch die Frage, wann wird collide ausgelöst? nur wenn hittest einen kleinen Wert wiedergibt?
 	 * 
 	 */
 	[AddComponentMenu("Visual Pinball/Game Item/Drop Target")]
