@@ -83,7 +83,6 @@ namespace VisualPinball.Unity
 
 				for (var i  = start; i != end; i += dt) {
 					ref var coll = ref colliders[colliderIds[i].Value].Value;
-					var ignoreCollision = false;
 
 					var newCollEvent = new CollisionEventData();
 					float newTime = 0;
@@ -141,7 +140,7 @@ namespace VisualPinball.Unity
 										if (HasComponent<DropTargetAnimationData>(coll.Entity)) {
 											var dropTargetAnimationData = GetComponent<DropTargetAnimationData>(coll.Entity);
 											if (dropTargetAnimationData.IsDropped || dropTargetAnimationData.MoveAnimation) {  // QUICKFIX so that DT is not triggered twice
-												 //ignoreCollision = true;
+												 // ignore this collision
 												newTime = -1;
 											}
 											else {
