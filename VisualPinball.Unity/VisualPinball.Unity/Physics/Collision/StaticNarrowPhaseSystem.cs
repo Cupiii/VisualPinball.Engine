@@ -83,7 +83,7 @@ namespace VisualPinball.Unity
 
 				for (var i  = start; i != end; i += dt) {
 					ref var coll = ref colliders[colliderIds[i].Value].Value;
-					var saveCollision = true;
+					var ignoreCollision = false;
 
 					var newCollEvent = new CollisionEventData();
 					float newTime = 0;
@@ -141,7 +141,8 @@ namespace VisualPinball.Unity
 										if (HasComponent<DropTargetAnimationData>(coll.Entity)) {
 											var dropTargetAnimationData = GetComponent<DropTargetAnimationData>(coll.Entity);
 											if (dropTargetAnimationData.IsDropped || dropTargetAnimationData.MoveAnimation) {  // QUICKFIX so that DT is not triggered twice
-												saveCollision = false;
+												 //ignoreCollision = true;
+												newTime = -1;
 											}
 											else {
 												newTime = Collider.HitTest(ref coll, ref newCollEvent, ref insideOfs, in ballData, collEvent.HitTime);
@@ -161,9 +162,9 @@ namespace VisualPinball.Unity
 							}
 						}
 					}
-					if (saveCollision) {
-						SaveCollisions(ref collEvent, ref newCollEvent, ref contacts, in ballEntity, in coll, newTime);
-					}
+				
+					SaveCollisions(ref collEvent, ref newCollEvent, ref contacts, in ballEntity, in coll, newTime);
+					
 				}
 
 				// no negative time allowed
