@@ -226,7 +226,7 @@ namespace VisualPinball.Unity
 
 									if (HasComponent<DropTargetAnimationData>(coll.Entity)) {
 										var dropTargetAnimationData = GetComponent<DropTargetAnimationData>(coll.Entity);
-										TargetCollider.DropTargetCollide(ref ballData, ref events, ref dropTargetAnimationData,
+										DropTargetCollider.DropTargetCollide(ref ballData, ref events, ref dropTargetAnimationData,
 											in normal, in ballEntity, in collEvent, in coll, ref random);
 										SetComponent(coll.Entity, dropTargetAnimationData);
 									}
