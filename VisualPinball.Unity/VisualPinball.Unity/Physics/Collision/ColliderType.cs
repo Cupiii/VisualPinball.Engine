@@ -34,6 +34,7 @@ namespace VisualPinball.Unity
 		Spinner,
 		Triangle,
 		TriggerCircle,
-		TriggerLine
+		TriggerLine,
+		DropTarget
 	}
 }

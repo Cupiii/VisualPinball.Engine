@@ -91,6 +91,8 @@ namespace VisualPinball.Unity
 						return ((CircleCollider*) collider)->HitTest(ref collEvent, ref insideOf, in ball, dTime);
 					case ColliderType.Gate:
 						return ((GateCollider*) collider)->HitTest(ref collEvent, ref insideOf, in ball, dTime);
+					case ColliderType.DropTarget:
+						return ((DropTargetCollider*)collider)->HitTest(ref collEvent, ref insideOf, in ball, dTime);
 					case ColliderType.Line:
 						return ((LineCollider*) collider)->HitTest(ref collEvent, ref insideOf, in ball, dTime);
 					case ColliderType.LineZ:
