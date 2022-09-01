@@ -180,6 +180,8 @@ namespace VisualPinball.Unity
 	[AddComponentMenu("Visual Pinball/Game Item/Drop Target")]
 	public class DropTargetComponent : TargetComponent, IConvertGameObjectToEntity
 	{
+
+
 		public override bool IsLegacy {
 			get {
 				var colliderComponent = GetComponent<DropTargetColliderComponent>();

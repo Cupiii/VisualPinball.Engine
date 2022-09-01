@@ -27,6 +27,14 @@ namespace VisualPinball.Unity {
 			);
 		}
 
+		public DropTargetCollider(in LineCollider lineSeg0, in LineCollider lineSeg1, ColliderInfo info) : this() {
+			_header.Init(info, ColliderType.Gate);
+			//LineSeg0 = lineSeg0;
+			//LineSeg1 = lineSeg1;
+
+			//Bounds = LineSeg0.Bounds;
+		}
+
 		public static void DropTargetCollide(ref BallData ball, ref NativeQueue<EventData>.ParallelWriter hitEvents,
 		ref DropTargetAnimationData animationData, in float3 normal, in Entity ballEntity, in CollisionEventData collEvent,
 		in Collider coll, ref Random random) {
