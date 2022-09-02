@@ -32,31 +32,18 @@ namespace VisualPinball.Unity
 		// Physical Dimensions
 		[Min (0f)]
 		[Tooltip ("Dimension of the main drop target body collider")]
-		public Vector3 Dimensions;
-
-		[Min(0f)]
-		[Tooltip("Overhang front")]
-		public float OverhangFront;
-
-		[Min(0f)]
-		[Tooltip("Overhang Back")]
-		public float OverhangBack;
-
-		[Range(0f, 10f)]
-		[Tooltip("Mass")]
-		public float Mass;
-
+		public Vector3 Dimensions = new Vector3 (1f, 1f, 1f);
 
 		// bent position
 		[Min(0f)]
 		[Tooltip("Deflected Target Offset (Back)")]
-		public float DelfectBack= 2.0f;
+		public float DeflectBack= 2.0f;
 
 		[Min(0f)]
 		[Tooltip("Deflected Target Offset (Down)")]
 		public float DeflectDown = 0.1f;
 
-		[Range(-180f, 180f)]
+		[Range(-90f, 90f)]
 		[Tooltip("Deflected rotation of the target. (positive gives airballs)")]
 		public float DeflectRotation = 1f;
 
@@ -68,6 +55,10 @@ namespace VisualPinball.Unity
 		[Range(0, 100f)]
 		[Tooltip("Minimal impact needed in order to trigger a hit event.")]
 		public float Threshold = 2.0f;
+
+		[Range(0f, 10f)]
+		[Tooltip("Mass")]
+		public float Mass = 0.1f;
 
 		[Range(0f, 60f)]
 		[Tooltip("Velocity at which the target will start to brick (with MinimalBrickPercentage)")]
@@ -91,7 +82,7 @@ namespace VisualPinball.Unity
 		// Physics Materials
 		// Standing
 		public override PhysicsMaterialData PhysicsMaterialData => GetPhysicsMaterialData(Elasticity, ElasticityFalloff, Friction, Scatter, OverwritePhysics);
-		
+
 		[Tooltip("Ignore the assigned physics material above and use the value below.")] 
 		public bool OverwritePhysics = true;
 
@@ -114,6 +105,7 @@ namespace VisualPinball.Unity
 
 		// Bent
 		public PhysicsMaterialData BentPhysicsMaterialData => GetPhysicsMaterialData(Elasticity, ElasticityFalloff, Friction, Scatter, OverwritePhysics);
+		public PhysicsMaterialAsset BentPhysicsMaterial;
 
 		[Tooltip("Ignore the assigned physics material above and use the value below.")]
 		public bool BentOverwritePhysics = true;
@@ -135,27 +127,27 @@ namespace VisualPinball.Unity
 		public float BentScatter = 5f;
 
 		// Down
-		public PhysicsMaterialData DownPhysicsMaterialData => GetPhysicsMaterialData(Elasticity, ElasticityFalloff, Friction, Scatter, OverwritePhysics);
+		public PhysicsMaterialData SidePhysicsMaterialData => GetPhysicsMaterialData(Elasticity, ElasticityFalloff, Friction, Scatter, OverwritePhysics);
+		public PhysicsMaterialAsset SidePhysicsMaterial;
 
 		[Tooltip("Ignore the assigned physics material above and use the value below.")]
-		public bool DownOverwritePhysics = true;
+		public bool SideOverwritePhysics = true;
 
 		[Min(0f)]
 		[Tooltip("Bounciness, also known as coefficient of restitution. Higher is more bouncy.")]
-		public float DownElasticity = 0.35f;
+		public float SideElasticity = 0.35f;
 
 		[Min(0f)]
 		[Tooltip("How much to decrease elasticity for fast impacts.")]
-		public float DownElasticityFalloff = 0.5f;
+		public float SideElasticityFalloff = 0.5f;
 
 		[Min(0)]
 		[Tooltip("Friction of the material.")]
-		public float DownFriction = 0.2f;
+		public float SideFriction = 0.2f;
 
 		[Range(-90f, 90f)]
 		[Tooltip("When hit, add a random angle between 0 and this value to the trajectory.")]
-		public float DownScatter = 5f;
-
+		public float SideScatter = 5f;
 
 		// not used
 		[Tooltip("If set, send \"dropped\" and \"raised\" hit events.")]
