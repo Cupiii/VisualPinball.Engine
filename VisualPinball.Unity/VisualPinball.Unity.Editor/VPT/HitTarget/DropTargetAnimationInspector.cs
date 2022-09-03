@@ -24,17 +24,25 @@ namespace VisualPinball.Unity.Editor
 	[CustomEditor(typeof(DropTargetAnimationComponent)), CanEditMultipleObjects]
 	public class DropTargetAnimationInspector : AnimationInspector<HitTargetData, DropTargetComponent, DropTargetAnimationComponent>
 	{
-		private SerializedProperty _isDroppedProperty;
-		private SerializedProperty _speedProperty;
+		private SerializedProperty _dropSpeedProperty;
+		private SerializedProperty _raiseSpeedProperty;
+		private SerializedProperty _dropDelayProperty;
 		private SerializedProperty _raiseDelayProperty;
+		private SerializedProperty _overshootProperty;
+		private SerializedProperty _overshootDropDelayProperty;
+		private SerializedProperty _isDroppedProperty;
 
 		protected override void OnEnable()
 		{
 			base.OnEnable();
 
-			_isDroppedProperty = serializedObject.FindProperty(nameof(DropTargetAnimationComponent.IsDropped));
-			_speedProperty = serializedObject.FindProperty(nameof(DropTargetAnimationComponent.Speed));
+			_dropSpeedProperty = serializedObject.FindProperty(nameof(DropTargetAnimationComponent.DropSpeed));
+			_raiseSpeedProperty = serializedObject.FindProperty(nameof(DropTargetAnimationComponent.RaiseSpeed));
+			_dropDelayProperty = serializedObject.FindProperty(nameof(DropTargetAnimationComponent.DropDelay));
 			_raiseDelayProperty = serializedObject.FindProperty(nameof(DropTargetAnimationComponent.RaiseDelay));
+			_overshootProperty = serializedObject.FindProperty(nameof(DropTargetAnimationComponent.Overshoot));
+			_overshootDropDelayProperty = serializedObject.FindProperty(nameof(DropTargetAnimationComponent.OvershootDropDelay));
+			_isDroppedProperty = serializedObject.FindProperty(nameof(DropTargetAnimationComponent.IsDropped));
 		}
 
 		public override void OnInspectorGUI()
@@ -47,9 +55,13 @@ namespace VisualPinball.Unity.Editor
 
 			OnPreInspectorGUI();
 
-			PropertyField(_isDroppedProperty, updateTransforms: true);
-			PropertyField(_speedProperty);
+			PropertyField(_dropSpeedProperty);
+			PropertyField(_raiseSpeedProperty);
+			PropertyField(_dropDelayProperty);
 			PropertyField(_raiseDelayProperty);
+			PropertyField(_overshootProperty);
+			PropertyField(_overshootDropDelayProperty);
+			PropertyField(_isDroppedProperty, updateTransforms: true);
 
 			base.OnInspectorGUI();
 
