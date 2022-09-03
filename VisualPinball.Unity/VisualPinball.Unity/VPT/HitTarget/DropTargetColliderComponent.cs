@@ -25,19 +25,18 @@ namespace VisualPinball.Unity
 {
 	[AddComponentMenu("Visual Pinball/Collision/Drop Target Collider")]
 	[RequireComponent(typeof(DropTargetComponent))]
-	public class DropTargetColliderComponent : ColliderComponent<HitTargetData, TargetComponent>
-	{
+	public class DropTargetColliderComponent : ColliderComponent<HitTargetData, TargetComponent> {
 		#region Data
 
 		// Physical Dimensions
-		[Min (0f)]
-		[Tooltip ("Dimension of the main drop target body collider")]
-		public Vector3 Dimensions = new Vector3 (1f, 1f, 1f);
+		[Min(0f)]
+		[Tooltip("Dimension of the main drop target body collider")]
+		public Vector3 Dimensions = new Vector3(1f, 1f, 1f);
 
 		// bent position
 		[Min(0f)]
 		[Tooltip("Deflected Target Offset (Back)")]
-		public float DeflectBack= 2.0f;
+		public float DeflectBack = 2.0f;
 
 		[Min(0f)]
 		[Tooltip("Deflected Target Offset (Down)")]
@@ -47,6 +46,10 @@ namespace VisualPinball.Unity
 		[Tooltip("Deflected rotation of the target. (positive gives airballs)")]
 		public float DeflectRotation = 1f;
 
+		// down position
+		[Min(0f)]
+		[Tooltip("VP units drop target drops down")]
+		public float DropUnits = 44;
 
 		// behaviour
 		[Tooltip("If enabled, hit events by balls hitting from behind might be triggered.")]

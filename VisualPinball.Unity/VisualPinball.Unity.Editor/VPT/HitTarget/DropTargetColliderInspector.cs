@@ -25,12 +25,12 @@ namespace VisualPinball.Unity.Editor
 
 		private bool _foldoutPhysicalDimensions = true;
 		private bool _foldoutBentPosition = true;
+		private bool _foldoutDownPosition = true;
 		private bool _foldoutBehaviour = true;
 		private bool _foldoutPhysicsMaterialsStanding = true;
 		private bool _foldoutPhysicsMaterialsBent = true;
 		private bool _foldoutPhysicsMaterialsDown = true;
 
-		private bool _foldoutMaterial = true;
 
 
 
@@ -38,13 +38,13 @@ namespace VisualPinball.Unity.Editor
 
 
 		private SerializedProperty _dimensionsProperty;
-		private SerializedProperty _overhangFrontProperty;
-		private SerializedProperty _overhangBackProperty;
 		private SerializedProperty _massProperty;
 
 		private SerializedProperty _deflectBackProperty;
 		private SerializedProperty _deflectDownProperty;
 		private SerializedProperty _deflectRotationProperty;
+
+		private SerializedProperty _dropUnitsProperty;
 
 		private SerializedProperty _isLegacyProperty;
 		private SerializedProperty _thresholdProperty;
@@ -83,6 +83,8 @@ namespace VisualPinball.Unity.Editor
 			_deflectBackProperty = serializedObject.FindProperty(nameof(DropTargetColliderComponent.DeflectBack));
 			_deflectDownProperty = serializedObject.FindProperty(nameof(DropTargetColliderComponent.DeflectDown));
 			_deflectRotationProperty = serializedObject.FindProperty(nameof(DropTargetColliderComponent.DeflectRotation));
+
+			_dropUnitsProperty = serializedObject.FindProperty(nameof(DropTargetColliderComponent.DropUnits));
 
 			_isLegacyProperty = serializedObject.FindProperty(nameof(DropTargetColliderComponent.IsLegacy));
 			_thresholdProperty = serializedObject.FindProperty(nameof(DropTargetColliderComponent.Threshold));
@@ -125,8 +127,8 @@ namespace VisualPinball.Unity.Editor
 				PropertyField(_dimensionsProperty, "Dimensions", updateColliders: true);
 				EditorGUI.indentLevel = 0;
 			}
-			// Bent Position
 			EditorGUILayout.EndFoldoutHeaderGroup();
+			// Bent Position
 			if (_foldoutBentPosition = EditorGUILayout.BeginFoldoutHeaderGroup(_foldoutBentPosition, "Bent Position")) {
 				EditorGUI.indentLevel = 1;
 				PropertyField(_deflectBackProperty, "Deflect Back", updateColliders: true);
@@ -134,8 +136,15 @@ namespace VisualPinball.Unity.Editor
 				PropertyField(_deflectRotationProperty, "Deflect Rotation", updateColliders: true);
 				EditorGUI.indentLevel = 0;
 			}
-			// Behaviour
 			EditorGUILayout.EndFoldoutHeaderGroup();
+			// Down Position
+			if (_foldoutDownPosition = EditorGUILayout.BeginFoldoutHeaderGroup(_foldoutDownPosition, "Down Position")) {
+				EditorGUI.indentLevel = 1;
+				PropertyField(_dropUnitsProperty, "Drop Units", updateColliders: true);
+				EditorGUI.indentLevel = 0;
+			}
+			EditorGUILayout.EndFoldoutHeaderGroup();
+			// Behaviour
 			if (_foldoutBehaviour = EditorGUILayout.BeginFoldoutHeaderGroup(_foldoutBehaviour, "Behaviour")) {
 				EditorGUI.indentLevel = 1;
 				PropertyField(_isLegacyProperty, "Legacy Collider");
@@ -156,7 +165,7 @@ namespace VisualPinball.Unity.Editor
 				EditorGUI.EndDisabledGroup();
 				PropertyField(_overwritePhysicsProperty,"Overwrite Physics");
 				EditorGUI.BeginDisabledGroup(!_overwritePhysicsProperty.boolValue);
-				PropertyField(_elasticityProperty, "Elsticity");
+				PropertyField(_elasticityProperty, "Elasticity");
 				PropertyField(_elasticityFalloffProperty, "Elasticity Falloff");
 				PropertyField(_frictionProperty, "Friction");
 				PropertyField(_scatterProperty, "Scatter Angle");
@@ -172,7 +181,7 @@ namespace VisualPinball.Unity.Editor
 				EditorGUI.EndDisabledGroup();
 				PropertyField(_bentOverwritePhysicsProperty, "Overwrite Physics");
 				EditorGUI.BeginDisabledGroup(!_bentOverwritePhysicsProperty.boolValue);
-				PropertyField(_bentElasticityProperty, "Elsticity");
+				PropertyField(_bentElasticityProperty, "Elasticity");
 				PropertyField(_bentElasticityFalloffProperty, "Elasticity Falloff");
 				PropertyField(_bentFrictionProperty, "Friction");
 				PropertyField(_bentScatterProperty, "Scatter Angle");
@@ -187,7 +196,7 @@ namespace VisualPinball.Unity.Editor
 				EditorGUI.EndDisabledGroup();
 				PropertyField(_sideOverwritePhysicsProperty, "Overwrite Physics");
 				EditorGUI.BeginDisabledGroup(!_sideOverwritePhysicsProperty.boolValue);
-				PropertyField(_sideElasticityProperty, "Elsticity");
+				PropertyField(_sideElasticityProperty, "Elasticity");
 				PropertyField(_sideElasticityFalloffProperty, "Elasticity Falloff");
 				PropertyField(_sideFrictionProperty, "Friction");
 				PropertyField(_sideScatterProperty, "Scatter Angle");
